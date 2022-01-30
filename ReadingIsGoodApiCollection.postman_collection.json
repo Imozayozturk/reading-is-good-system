@@ -1,0 +1,646 @@
+{
+	"info": {
+		"_postman_id": "28501c83-8579-43ff-8918-c363a82e4619",
+		"name": "ReadingIsGoodApiCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "createCustomer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Ozay\",\n  \"surname\": \"Ozturk\",\n  \"email\":\"ozay@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCustomer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCustomerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer/61f6a1fb7245156e82fdfbb3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"61f6a1fb7245156e82fdfbb3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const tokenUrl = 'http://localhost:8080/authenticate';",
+							"",
+							"const getTokenRequest = {",
+							"    method: 'POST',",
+							"    url: tokenUrl,",
+							"    header: {",
+							"        'Accept': 'application/json',",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"       \"username\": \"getir\",",
+							"       \"password\": \"password\"",
+							"       })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(getTokenRequest, (err, response) => {",
+							"    const jsonResponse = response.json();",
+							"    const newAccessToken = jsonResponse.token;",
+							"",
+							"    pm.variables.set('token', newAccessToken);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "createBook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"A Tale of Two Cities\",\n    \"author\": \"Charles Dickens\",\n    \"publishYear\": 1859,\n    \"stock\": 1000,\n    \"amount\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllBooks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStockCount",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/book/61f6a3267245156e82fdfbb4?stockCount=1500",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"book",
+								"61f6a3267245156e82fdfbb4"
+							],
+							"query": [
+								{
+									"key": "stockCount",
+									"value": "1500"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const tokenUrl = 'http://localhost:8080/authenticate';",
+							"",
+							"const getTokenRequest = {",
+							"    method: 'POST',",
+							"    url: tokenUrl,",
+							"    header: {",
+							"        'Accept': 'application/json',",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"       \"username\": \"getir\",",
+							"       \"password\": \"password\"",
+							"       })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(getTokenRequest, (err, response) => {",
+							"    const jsonResponse = response.json();",
+							"    const newAccessToken = jsonResponse.token;",
+							"",
+							"    pm.variables.set('token', newAccessToken);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "createOrder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customerId\": \"61f6d0c2a0e45629a4ba80f9\",\n    \"bookId\": \"61f6d0c8a0e45629a4ba80fa\",\n    \"orderCount\": 21\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderById",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/61f6a8943fd46a2c17270a8f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"61f6a8943fd46a2c17270a8f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderByCustomerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order?customerId=61f6a1fb7245156e82fdfbb3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "61f6a1fb7245156e82fdfbb3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderBetweenDates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/order/betweenDates?startDate=1643469185000&endDate=1743555546357",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"betweenDates"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "1643469185000"
+								},
+								{
+									"key": "endDate",
+									"value": "1743555546357"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const tokenUrl = 'http://localhost:8080/authenticate';",
+							"",
+							"const getTokenRequest = {",
+							"    method: 'POST',",
+							"    url: tokenUrl,",
+							"    header: {",
+							"        'Accept': 'application/json',",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"       \"username\": \"getir\",",
+							"       \"password\": \"password\"",
+							"       })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(getTokenRequest, (err, response) => {",
+							"    const jsonResponse = response.json();",
+							"    const newAccessToken = jsonResponse.token;",
+							"",
+							"    pm.variables.set('token', newAccessToken);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "getStatisticsByCustomerId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnZXRpciIsImV4cCI6MTYyMDUyOTQxNCwiaWF0IjoxNjIwNTExNDE0fQ.98LxGWvncV9ROxmzTrdAFn6sVBMLENbGCkuHtKkPSH2oDpxKoACd8gNfwl1HNBDtpGnWCWR2rMSn2nAtbjdStA"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/statistics?customerId=61f6d0c2a0e45629a4ba80f9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"statistics"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "61f6d0c2a0e45629a4ba80f9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"const tokenUrl = 'http://localhost:8080/authenticate';",
+							"",
+							"const getTokenRequest = {",
+							"    method: 'POST',",
+							"    url: tokenUrl,",
+							"    header: {",
+							"        'Accept': 'application/json',",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"       \"username\": \"getir\",",
+							"       \"password\": \"password\"",
+							"       })",
+							"    }",
+							"};",
+							"",
+							"pm.sendRequest(getTokenRequest, (err, response) => {",
+							"    const jsonResponse = response.json();",
+							"    const newAccessToken = jsonResponse.token;",
+							"",
+							"    pm.variables.set('token', newAccessToken);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"getir\",\r\n    \"password\":\"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

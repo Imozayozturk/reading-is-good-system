@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: local
+    include: mongo-config
+  application:
+    name: @project.name@
+    description: @project.description@
+
+swagger:
+  host:
+    url: localhost:8080
+    protocol: http
+  contact:
+    name: Reading Is Good Service
+    url: https://reading@isgood.com
+    email: info@readingisgood.com
+  license:
+    name: Reading Is Good Service
+    url: https://account@readingisgood.com/kullanim_kosullari.html
+  version: V1
+
+jwt:
+  secret: getir
